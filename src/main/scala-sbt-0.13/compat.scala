@@ -31,9 +31,11 @@ package librarymanagement {
       def withLogging(ul: UpdateLogging): UpdateConfiguration = _uc copy (logging = ul)
     }
 
-    implicit class RichUpdateReport(val _ur: UpdateReport) extends AnyVal {
-      def configuration(c: ConfigRef) = _ur configuration c.name
+    class RichUpdateReport(report: UpdateReport) {
+      def configuration(c: ConfigRef) = report configuration c.name
     }
+
+    implicit def richUpdateReport(ur: UpdateReport): RichUpdateReport = new RichUpdateReport(ur)
   }
 
   final case class ConfigRef(name: String)
